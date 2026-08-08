@@ -56,7 +56,7 @@
 #define INVERT_DIRECTION 0      // Wenn der Motor rückwärts dreht, hier eine 1 eintragen
 #define INVERTER_TEMP_MAX 80    // Temperaturschutz für den G30 Controller (80°C)
 
-#endif /* CONFIG_H_ */
+
 
 
 
