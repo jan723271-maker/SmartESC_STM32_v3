@@ -2,23 +2,63 @@
 #define THROTTLEMAX 175
 #define BRAKEOFFSET 50
 #define BRAKEMAX 100
+#ifndef CONFIG_H_
+#define CONFIG_H_
 
-// speed limits for invividual modes in kph
-#define SPEEDLIMIT_ECO 6
-#define SPEEDLIMIT_NORMAL 20
-#define SPEEDLIMIT_SPORT 80
+// ====================================================================
+// HARDWARE DEFINITION
+// ====================================================================
+#define HW_G30                  // Aktiviert das Ninebot G30 Platinen-Layout
+//#define HW_M365               // Deaktiviert (auskommentiert)
 
-// motor current limits for invividual modes in mA
-// note that hacked firmware allows up to 55amps motor phase current
-#define PH_CURRENT_MAX_ECO 10000
-#define PH_CURRENT_MAX_NORMAL 15000
-#define PH_CURRENT_MAX_SPORT 25000
+// ====================================================================
+// BATTERIE & SPANNUNG (48V / 13S Modifikation)
+// ====================================================================
+#define BATTERY_VOLTAGE_MIN 39000     // 39.0V - Tiefentladeschutz für 48V Akku
+#define BATTERY_VOLTAGE_MAX 55000     // 55.0V - Ladeschluss-Sicherheitspuffer (max 54.6V)
 
-// motor current limit for regen in mA
-#define REGEN_MAX_CURRENT 10000
+// ====================================================================
+// GLOBAL STROMBEGRENZUNG
+// ====================================================================
+#define BATTERY_CURRENT_MAX 38000     // Maximal 38 Ampere Batteriestrom
+#define PHASE_CURRENT_MAX   65000     // Maximal 65 Ampere Phasenstrom (KuKirin Motor)
 
-// maximum current for field weakening in mA
-#define FIELD_WEAKNING_CURRENT_MAX 5000//max id
+// ====================================================================
+// DASHBOARD & INTEGRATION (G30 Stock Dashboard)
+// ====================================================================
+#define US_DASHBOARD_G30        // Aktiviert das originale Ninebot G30 Display
+#define BMS_UART_COMM           // Aktiviert die 3-Kabel UART-Kommunikation zum BMS
+
+// ====================================================================
+// DIE 3 FAHRMODI (Eco, Normal, Sport) & FIELD WEAKENING
+// ====================================================================
+#define FIELD_WEAK_ENA 1        // Feldschwächung grundsätzlich aktivieren
+
+// --- MODUS 1: ECO (Polizei- / Legal-Modus) ---
+#define PHASE_CURRENT_ECO 25000        // 25A Phasenstrom (sanfter Anzug)
+#define SPEED_LIMIT_ECO 99            // Strikt auf 22 km/h gedrosselt
+#define FIELD_WEAK_CURRENT_ECO 0       // 0A - Feldschwächung komplett AUS
+
+// --- MODUS 2: NORMAL (Mittlere Feldschwächung) ---
+#define PHASE_CURRENT_NORMAL 45000     // 45A Phasenstrom
+#define SPEED_LIMIT_NORMAL 99          // Begrenzt auf ca. 35 km/h
+#define FIELD_WEAK_CURRENT_NORMAL 6000  // 6A Feldschwächung (mittlerer Top-Speed)
+
+// --- MODUS 3: SPORT (Starke Feldschwächung + Offene Leistung) ---
+#define PHASE_CURRENT_SPORT 65000      // Volle 65A Phasenstrom für den G2 Master Motor
+#define SPEED_LIMIT_SPORT 99           // Keine Geschwindigkeitsbegrenzung (offen)
+#define FIELD_WEAK_CURRENT_SPORT 14000 // 14A starke Feldschwächung (maximaler Top-Speed)
+
+// ====================================================================
+// MOTOR-PARAMETER & SCHUTZFUNKTIONEN
+// ====================================================================
+#define MOTOR_POLE_PAIRS 15     // 15 Polpaare entspricht genau den 30 Polen des KuKirin G2 Master Motors
+#define INVERT_DIRECTION 0      // Wenn der Motor rückwärts dreht, hier eine 1 eintragen
+#define INVERTER_TEMP_MAX 80    // Temperaturschutz für den G30 Controller (80°C)
+
+#endif /* CONFIG_H_ */
+
+
 
 // ADC channels
 #define ADC_VOLTAGE 0
