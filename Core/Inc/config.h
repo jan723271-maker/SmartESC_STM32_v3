@@ -18,7 +18,7 @@
 #define REGEN_MAX_CURRENT 10000
 
 // maximum current for field weakening in mA
-#define FIELD_WEAKNING_CURRENT_MAX 0 //max id
+#define FIELD_WEAKNING_CURRENT_MAX 5000//max id
 
 // ADC channels
 #define ADC_VOLTAGE 0
