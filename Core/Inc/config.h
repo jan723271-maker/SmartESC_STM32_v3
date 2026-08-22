@@ -81,5 +81,3 @@
 #define PWR_BTN_GPIO_Port GPIOC
 #define TPS_ENA_Pin GPIO_PIN_15
 #define TPS_ENA_GPIO_Port GPIOC
-
-
